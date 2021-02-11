@@ -1,8 +1,8 @@
 
-resource "aws_instance" "example" {
+resource "aws_instance" "bastian" {
   ami             = data.aws_ami.ubuntu.id
   instance_type   = "t2.micro"
-  security_groups = ["${aws_security_group.example.name}"]
+  security_groups = ["${aws_security_group.bastian.name}"]
   key_name        = "${aws_key_pair.generated_key.key_name}"
 
   provisioner "remote-exec" {
@@ -15,7 +15,7 @@ resource "aws_instance" "example" {
     connection {
       type        = "ssh"
       host        = self.public_dns
-      private_key = "${tls_private_key.example.private_key_pem}"
+      private_key = "${tls_private_key.bastian.private_key_pem}"
       user        = "ubuntu"
       timeout     = "1m"
     }
@@ -27,14 +27,14 @@ resource "aws_instance" "example" {
   }
 }
 
-resource "tls_private_key" "example" {
+resource "tls_private_key" "bastian" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 
 resource "aws_key_pair" "generated_key" {
-  key_name   = "example_key_pair"
-  public_key = "${tls_private_key.example.public_key_openssh}"
+  key_name   = "bastian_key_pair"
+  public_key = "${tls_private_key.bastian.public_key_openssh}"
 
   tags = {
     Name    = "postgres-bastion-kp"
@@ -42,9 +42,10 @@ resource "aws_key_pair" "generated_key" {
   }
 }
 
-resource "aws_security_group" "example" {
-  name        = "grant ssh"
+resource "aws_security_group" "bastian" {
+  name        = "sb-upn-bastion-sg"
   description = "grant ssh"
+  //vpc_id      = aws_vpc.sb-upn-vpc.id
 
   ingress {
     from_port   = 22
@@ -65,8 +66,6 @@ resource "aws_security_group" "example" {
     Project = "sb-upn"
   }
 }
-
-
 
 data "aws_ami" "ubuntu" {
   most_recent = true
