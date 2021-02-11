@@ -37,6 +37,9 @@ override.tf.json
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+my_secrey_key
+my_secrey_key.pub
+
 .DS_Store
 
 # Build results
