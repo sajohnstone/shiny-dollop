@@ -13,18 +13,6 @@ Running the Terraform scripts will do the following:-
 
 ### Accessing the bastian
 
-You will need to create a bastian.tfvars file that looks something like this:-
-
-```bash
-# Set this to `true` and do a `terraform apply` to spin up a bastion host
-# and when you are done, set it to `false` and do another `terraform apply`
-bastion_enabled = true
-# My SSH keyname (without the .pem extension)
-ssh_key_name = "sb-upn-stu-aws"
-# The IP of my computer. Do a `curl -sq icanhazip.com` to get it
-myip = ["195.213.74.49/32"]
-```
-
 To provision you need to :-
 
 ```bash
@@ -49,6 +37,7 @@ Things we would need to improve for the prod version are:-
 - The SQL scripts are provisioned locally ideally this should be on a bastion for security
 - No backups have been provisioned
 - Enhanced monitoring is suggested for prodcution instances
+- Lock the bastion so can only be access from your IP
 
 ## Credits
 
