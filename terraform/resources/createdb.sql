@@ -1,1 +1,3 @@
 CREATE DATABASE omop;
+
+Jwzrq*b{edzHAJ39
